@@ -1,0 +1,33 @@
+server:
+  port : 8081
+#Kafka Topic
+spring:
+  kafka:
+    # Перечисляем всех наших брокеров
+    bootstrap-servers: localhost:9092
+    producer:
+      # Настраиваем сериализацию сообщений
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      bootstrap-servers: localhost:9092
+    consumer:
+      group-id: myGroup
+      bootstrap-servers: localhost:9092
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: "*"
+#        spring.json.use.type.headers: false
+        spring:
+          json:
+            value:
+              default:
+                type: 'ru.bondarev.transactions.dto.OrderDTO'
+            type:
+              mapping: 'ru.bondarev.orders.dto.OrderDTO:ru.bondarev.transactions.dto.OrderDTO'
+            trusted:
+              packages: 'ru.bondarev.orders.dto'
+    topic-json:
+      name: order_details
+
