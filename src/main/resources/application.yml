@@ -29,5 +29,5 @@ spring:
             trusted:
               packages: 'ru.bondarev.orders.dto'
     topic-json:
-      name: order_details
+      name: order_confirmed
 
